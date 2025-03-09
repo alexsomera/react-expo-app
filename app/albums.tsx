@@ -1,0 +1,56 @@
+import React from 'react';
+import { Text, FlatList, TouchableOpacity, Image, View, StyleSheet } from "react-native";
+import { useRouter, useLocalSearchParams } from "expo-router";
+import { commonStyles } from "../assets/styles";
+import { useAlbumsViewModel } from "../ViewModel/AlbumsViewModel";
+
+
+export default function Albums() {
+    const router = useRouter();
+    const { id } = useLocalSearchParams();
+    const { filteredAlbums } = useAlbumsViewModel(id);
+
+    const handleAlbumClick = (albumId: number) => {
+        router.push(`/photos?albumId=${albumId}`);
+    };
+
+    return (
+        <FlatList
+            style={[commonStyles.container, { flex: 1 }]}
+            data={filteredAlbums}
+            keyExtractor={(item) => item.id.toString()}
+            numColumns={2}
+            ListHeaderComponent={
+                <Text style={commonStyles.title}>Selecione um álbum</Text>
+            }
+            ListFooterComponent={<View style={{ height: 20 }} />} // Added ListFooterComponent
+            renderItem={({ item }) => (
+                <TouchableOpacity onPress={() => handleAlbumClick(item.id)} style={styles.itemContainer}>
+                    <View style={styles.item}>
+                        <Image source={{ uri: 'https://dummyimage.com/640x360/ccc/aaa' }} style={styles.image} />
+                        <Text style={styles.title}>{item.title}</Text>
+                    </View>
+                </TouchableOpacity>
+            )}
+        />
+    );
+}
+
+const styles = StyleSheet.create({
+    itemContainer: {
+        flex: 1,
+        margin: 5,
+    },
+    item: {
+        flex: 1,
+        margin: 5,
+        marginBottom: 10,
+    },
+    image: {
+        width: '100%',
+        height: 100,
+    },
+    title: {
+        marginTop: 5,
+    },
+});
