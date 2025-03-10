@@ -26,32 +26,13 @@ export default function Albums() {
             }
             ListFooterComponent={<View style={{ height: 20 }} />} // Added ListFooterComponent
             renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => handleAlbumClick(item.id)} style={styles.itemContainer}>
-                    <View style={styles.item}>
-                        <Image source={{ uri: 'https://dummyimage.com/640x360/ccc/aaa' }} style={styles.image} />
-                        <Text style={styles.title}>{item.title}</Text>
+                <TouchableOpacity onPress={() => handleAlbumClick(item.id)} style={commonStyles.itemContainer}>
+                    <View style={commonStyles.item}>
+                        <Image source={{ uri: 'https://dummyimage.com/640x360/ccc/aaa' }} style={commonStyles.image} />
+                        <Text style={commonStyles.thumbTitle}>{item.title}</Text>
                     </View>
                 </TouchableOpacity>
             )}
         />
     );
 }
-
-const styles = StyleSheet.create({
-    itemContainer: {
-        flex: 1,
-        margin: 5,
-    },
-    item: {
-        flex: 1,
-        margin: 5,
-        marginBottom: 10,
-    },
-    image: {
-        width: '100%',
-        height: 100,
-    },
-    title: {
-        marginTop: 5,
-    },
-});

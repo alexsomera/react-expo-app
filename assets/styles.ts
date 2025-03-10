@@ -10,13 +10,20 @@ export const commonStyles = StyleSheet.create({
         fontSize: 22,
         marginBottom: 20,
     },
-    search: {
-        padding: 10,
-        marginBottom: 20,
-        backgroundColor: '#E9F7FF',
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 16,
-        outline: 'none',
-    }
+    itemContainer: {
+        flex: 1,
+        margin: 5,
+    },
+    item: {
+        flex: 1,
+        margin: 5,
+        marginBottom: 10,
+    },
+    image: {
+        width: '100%',
+        height: 100,
+    },
+    thumbTitle: {
+        marginTop: 5,
+    },
 });
