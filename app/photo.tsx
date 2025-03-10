@@ -5,34 +5,34 @@ import { commonStyles } from "../assets/styles";
 import { usePhotoViewModel } from "../ViewModel/PhotoViewModel";
 
 export default function Photo() {
-  const { photoUrl, photoTitle } = useLocalSearchParams();
-  const { photo, error, setError } = usePhotoViewModel(photoUrl);
+    const { photoUrl, photoTitle } = useLocalSearchParams();
+    const { photo, error, setError } = usePhotoViewModel(Array.isArray(photoUrl) ? photoUrl[0] : photoUrl);
 
-  return (
-    <ScrollView style={commonStyles.container}>
-      <Text style={commonStyles.title}>{photoTitle}</Text>
-      <View style={Styles.imageContainer}>
-        <Image
-          source={error ? require('../assets/images/placeholder.png') : { uri: photoUrl }}
-          style={Styles.image}
-          resizeMode="contain"
-          onError={() => setError(true)}
-        />
-      </View>
-    </ScrollView>
-  );
+    return (
+        <ScrollView style={commonStyles.container}>
+            <Text style={commonStyles.title}>{photoTitle}</Text>
+            <View style={Styles.imageContainer}>
+                <Image
+                    source={error ? require('../assets/images/placeholder.png') : { uri: photoUrl }}
+                    style={Styles.image}
+                    resizeMode="contain"
+                    onError={() => setError(true)}
+                />
+            </View>
+        </ScrollView>
+    );
 }
 
 const Styles = StyleSheet.create({
-  imageContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    aspectRatio: 1,
-  },
+    imageContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+        aspectRatio: 1,
+    },
 });

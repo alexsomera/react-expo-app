@@ -1,19 +1,23 @@
 import { useState, useEffect } from 'react';
-import { Photo, fetchPhotos } from '../Model/PhotosModel';
+import { Photos, fetchPhotos } from '../Model/PhotosModel';
 
 export function usePhotosViewModel(albumId: string) {
-  const [photos, setPhotos] = useState<Photo[]>([]);
-  const [filteredPhotos, setFilteredPhotos] = useState<Photo[]>([]);
+  const [photos, setPhotos] = useState<Photos[]>([]);
+  const [filteredPhotos, setFilteredPhotos] = useState<Photos[]>([]);
   const [errorPhotos, setErrorPhotos] = useState<Set<number>>(new Set());
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   useEffect(() => {
     async function loadPhotos() {
-      const photos = await fetchPhotos();
-      setPhotos(photos);
-      // Filter photos by album ID
-      const albumPhotos = photos.filter(photo => photo.albumId === parseInt(albumId));
-      setFilteredPhotos(albumPhotos);
+      try {
+        const photos = await fetchPhotos();
+        setPhotos(photos);
+        // Filter photos by album ID
+        const albumPhotos = photos.filter(photo => photo.albumId === parseInt(albumId));
+        setFilteredPhotos(albumPhotos);
+      } catch (e) {
+        console.error('Falha ao carregar fotos:', e);
+      }
     }
     loadPhotos();
   }, [albumId]);

@@ -8,7 +8,8 @@ import { useAlbumsViewModel } from "../ViewModel/AlbumsViewModel";
 export default function Albums() {
     const router = useRouter();
     const { id } = useLocalSearchParams();
-    const { filteredAlbums } = useAlbumsViewModel(id);
+    const albumId = Array.isArray(id) ? id[0] : id;
+    const { filteredAlbums } = useAlbumsViewModel(albumId);
 
     const handleAlbumClick = (albumId: number) => {
         router.push(`/photos?albumId=${albumId}`);

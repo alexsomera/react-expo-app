@@ -8,13 +8,14 @@ import { MaterialIcons } from '@expo/vector-icons';
 export default function Photos() {
     const router = useRouter();
     const { albumId } = useLocalSearchParams();
+    const albumIdString = Array.isArray(albumId) ? albumId[0] : albumId;
     const {
         filteredPhotos,
         errorPhotos,
         searchQuery,
         setSearchQuery,
         handleImageError,
-    } = usePhotosViewModel(albumId);
+    } = usePhotosViewModel(albumIdString);
 
     const handlePhotoClick = (photoUrl: string, photoTitle: string) => {
         router.push(`/photo?photoUrl=${photoUrl}&photoTitle=${encodeURIComponent(photoTitle)}`);
