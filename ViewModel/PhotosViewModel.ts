@@ -4,16 +4,20 @@ import { Photos, fetchPhotos } from '../Model/PhotosModel';
 export function usePhotosViewModel(albumId: string) {
   const [photos, setPhotos] = useState<Photos[]>([]);
   const [filteredPhotos, setFilteredPhotos] = useState<Photos[]>([]);
-  const [errorPhotos, setErrorPhotos] = useState<Set<number>>(new Set());
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   useEffect(() => {
     async function loadPhotos() {
       try {
         const photos = await fetchPhotos();
-        setPhotos(photos);
+        const updatedPhotos = photos.map(photo => ({
+          ...photo,
+          thumbnailUrl: photo.thumbnailUrl.replace('via.placeholder.com', 'dummyimage.com'),
+          url: photo.url.replace('via.placeholder.com', 'dummyimage.com')
+        }));
+        setPhotos(updatedPhotos);
         // Filter photos by album ID
-        const albumPhotos = photos.filter(photo => photo.albumId === parseInt(albumId));
+        const albumPhotos = updatedPhotos.filter(photo => photo.albumId === parseInt(albumId));
         setFilteredPhotos(albumPhotos);
       } catch (e) {
         console.error('Falha ao carregar fotos:', e);
@@ -30,16 +34,10 @@ export function usePhotosViewModel(albumId: string) {
     setFilteredPhotos(filtered);
   }, [searchQuery, photos, albumId]);
 
-  const handleImageError = (id: number) => {
-    setErrorPhotos(prev => new Set(prev).add(id));
-  };
-
   return {
     photos,
     filteredPhotos,
-    errorPhotos,
     searchQuery,
-    setSearchQuery,
-    handleImageError,
+    setSearchQuery
   };
 }

@@ -11,10 +11,8 @@ export default function Photos() {
     const albumIdString = Array.isArray(albumId) ? albumId[0] : albumId;
     const {
         filteredPhotos,
-        errorPhotos,
         searchQuery,
         setSearchQuery,
-        handleImageError,
     } = usePhotosViewModel(albumIdString);
 
     const handlePhotoClick = (photoUrl: string, photoTitle: string) => {
@@ -41,9 +39,8 @@ export default function Photos() {
                 <TouchableOpacity onPress={() => handlePhotoClick(item.url, item.title)} style={commonStyles.itemContainer}>
                     <View style={commonStyles.item}>
                         <Image
-                            source={errorPhotos.has(item.id) ? require('../assets/images/thumbnail.png') : { uri: item.thumbnailUrl }}
+                            source={{ uri: item.thumbnailUrl }}
                             style={commonStyles.image}
-                            onError={() => handleImageError(item.id)}
                         />
                         <Text style={commonStyles.thumbTitle}>{item.title}</Text>
                     </View>
