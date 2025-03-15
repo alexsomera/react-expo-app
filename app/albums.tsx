@@ -24,7 +24,7 @@ export default function Albums() {
             ListHeaderComponent={
                 <Text style={commonStyles.title}>Selecione um álbum</Text>
             }
-            ListFooterComponent={<View style={{ height: 20 }} />} // Added ListFooterComponent
+            ListFooterComponent={<View style={{ height: 20 }} />}
             renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => handleAlbumClick(item.id)} style={commonStyles.itemContainer}>
                     <View style={commonStyles.item}>
