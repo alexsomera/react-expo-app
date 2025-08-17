@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from '../app/app';
+import Index from '../app/index';
 
 // Mocks necessários para o teste do componente Index
 jest.mock('expo-router', () => ({

@@ -28,9 +28,9 @@ jest.mock('expo-constants', () => ({
   },
 }));
 
-jest.mock('../components/SearchBar', () => 'SearchBar');
+jest.mock('./components/SearchBar', () => 'SearchBar');
 
-jest.mock('../ViewModel/UsersViewModel', () => ({
+jest.mock('./ViewModel/UsersViewModel', () => ({
   useUsersViewModel: jest.fn(() => ({
     filteredUsers: [],
     searchQuery: '',
